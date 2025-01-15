@@ -92,6 +92,7 @@ const PageLogin = () => {
           name,
           role,
         },
+        emailRedirectTo: `${window.location.origin}/home`, // Redirigir a /home después de la confirmación
       },
     });
 
@@ -99,9 +100,9 @@ const PageLogin = () => {
       console.log(`Error: ${error.message}`);
     } else {
       console.log("Usuario registrado con éxito. Verifica tu correo.");
-      setTimeout(() => {
-        router.push("/home");
-      }, 2000);
+      //   setTimeout(() => {
+      //     router.push("/home");
+      //   }, 2000);
     }
   };
   return (
