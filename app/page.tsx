@@ -8,7 +8,7 @@ export default function Home() {
     <div>
       <h1>Welcome to Next.js!</h1>
       <PageLogin />
-      <Data />
+      {/* <Data /> */}
     </div>
   );
 }
