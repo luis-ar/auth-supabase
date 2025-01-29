@@ -1,13 +1,4 @@
-import {
-  ArrowDown,
-  ArrowRight,
-  ArrowUp,
-  CheckCircle,
-  Circle,
-  CircleOff,
-  HelpCircle,
-  Timer,
-} from "lucide-react";
+import { UserCog, UserRoundPen, Contact } from "lucide-react";
 
 export const labels = [
   {
@@ -23,49 +14,38 @@ export const labels = [
     label: "Documentation",
   },
 ];
-
-export const statuses = [
+export const namees = [
   {
-    value: "backlog",
-    label: "Backlog",
-    icon: HelpCircle,
+    value: "admin",
+    label: "Admin",
+    icon: UserCog,
   },
   {
-    value: "todo",
-    label: "Todo",
-    icon: Circle,
+    value: "psicologo",
+    label: "Psicologo",
+    icon: UserRoundPen,
   },
   {
-    value: "in progress",
-    label: "In Progress",
-    icon: Timer,
-  },
-  {
-    value: "done",
-    label: "Done",
-    icon: CheckCircle,
-  },
-  {
-    value: "canceled",
-    label: "Canceled",
-    icon: CircleOff,
+    value: "marketing",
+    label: "Marketing",
+    icon: Contact,
   },
 ];
 
 export const priorities = [
   {
-    label: "Low",
-    value: "low",
-    icon: ArrowDown,
+    value: "psicologo",
+    label: "Psicologo",
+    icon: UserRoundPen,
   },
   {
-    label: "Medium",
-    value: "medium",
-    icon: ArrowRight,
+    value: "marketing",
+    label: "Marketing",
+    icon: Contact,
   },
   {
-    label: "High",
-    value: "high",
-    icon: ArrowUp,
+    value: "admin",
+    label: "Admin",
+    icon: UserCog,
   },
 ];

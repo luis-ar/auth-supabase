@@ -17,6 +17,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { supabase } from "@/lib/supabaseClient";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 const formSchema = z.object({
   name: z
@@ -82,6 +83,19 @@ const PageLogin = () => {
     },
   });
 
+  useEffect(() => {
+    async function obtenerUsuarios() {
+      const { data, error } = await supabase.auth.admin.listUsers();
+
+      if (error) {
+        console.error("Error al obtener usuarios:", error);
+      } else {
+        console.log("Usuarios:", data);
+      }
+    }
+
+    obtenerUsuarios();
+  }, []);
   const handleSignUp = async (values: z.infer<typeof formSchema>) => {
     const { name, email, password, role } = values;
     const { data, error } = await supabase.auth.signUp({

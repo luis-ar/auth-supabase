@@ -8,6 +8,8 @@ import { columns } from "./components/columns";
 import { DataTable } from "./components/data-table";
 import { UserNav } from "./components/user-nav";
 import { taskSchema } from "./data/schema";
+import { supabase } from "@/lib/supabaseClient";
+import obtenerUsuarios from "@/components/obtenerUsuarios";
 
 export const metadata: Metadata = {
   title: "Tasks",
@@ -15,18 +17,33 @@ export const metadata: Metadata = {
 };
 
 // Simulate a database read for tasks.
-async function getTasks() {
-  const data = await fs.readFile(
-    path.join(process.cwd(), "app/table/data/tasks.json")
-  );
-  const tasks = JSON.parse(data.toString());
+// async function getTasks() {
+//   const data = await fs.readFile(
+//     path.join(process.cwd(), "app/table/data/tasks.json")
+//   );
+//   const tasks = JSON.parse(data.toString());
 
-  return z.array(taskSchema).parse(tasks);
+//   return z.array(taskSchema).parse(tasks);
+// }
+
+/*
+[
+{
+id: "TASK-8782",
+email: "luis.santos@gmail.com",
+name: "Luis Santos",
+role: "admin",
 }
 
-export default async function TaskPage() {
-  const tasks = await getTasks();
+]
 
+
+*/
+
+export default async function TaskPage() {
+  const users = await obtenerUsuarios();
+  // console.log(tasks);
+  // console.log(users);
   return (
     <>
       <div className="md:hidden">
@@ -57,7 +74,7 @@ export default async function TaskPage() {
             <UserNav />
           </div>
         </div>
-        <DataTable data={tasks} columns={columns} />
+        <DataTable data={users} columns={columns} />
       </div>
     </>
   );
