@@ -8,13 +8,15 @@ on:
 jobs:
   sync:
     runs-on: ubuntu-latest
+    env:
+      MIRROR_TOKEN: ${{ secrets.MIRROR_TOKEN }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
 
-      - name: Debugging - Print environment variabless
+      - name: Debugging - Print environment variables
         run: |
           echo "MIRROR_TOKEN: $MIRROR_TOKEN"
           echo "GITHUB_REPOSITORY: $GITHUB_REPOSITORY"
@@ -27,8 +29,6 @@ jobs:
         run: git log --oneline -n 5
 
       - name: Push to Mirror
-        env:
-          MIRROR_TOKEN: ${{ secrets.MIRROR_TOKEN }}
         run: |
           git remote add mirror https://$MIRROR_TOKEN@github.com/luis-ar/authcopy.git
           git push mirror main
