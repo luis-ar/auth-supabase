@@ -34,7 +34,7 @@ jobs:
       - name: Merge changes
         run: |
           git checkout main  # Cambia 'client_branch' a la rama que desees
-          git merge upstream/production --no-edit
+          git merge upstream/main --no-edit
         working-directory: client_repo
       - name: Push changes to client's repo
         run: git push origin main # Cambia 'client_branch' si es necesario
