@@ -1,6 +1,38 @@
-- name: Push to Mirror
-  env:
-    MIRROR_TOKEN: ${{ secrets.MIRROR_TOKEN }}
-  run: |
-    git remote add mirror https://$MIRROR_TOKEN@github.com/luis-ar/authcopy.git
-    git push mirror main
+name: Sync to Mirror
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    env:
+      MIRROR_TOKEN: ${{ secrets.MIRROR_TOKEN }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Debugging - Print environment variables
+        run: |
+          echo "MIRROR_TOKEN: $MIRROR_TOKEN"
+          echo "GITHUB_REPOSITORY: $GITHUB_REPOSITORY"
+          echo "GITHUB_REF: $GITHUB_REF"
+
+      - name: Debugging - Check remotes
+        run: git remote -v
+
+      - name: Debugging - Check commit history
+        run: git log --oneline -n 5
+
+      - name: Push to Mirror
+        run: |
+          git remote add mirror https://$MIRROR_TOKEN@github.com/luis-ar/authcopy.git
+          git push mirror main
+
+      - name: Debugging - Check files in the workspace
+        if: failure()
+        run: ls -la
