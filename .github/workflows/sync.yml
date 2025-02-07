@@ -20,10 +20,10 @@ jobs:
         run: |
           git config --global user.email "luisdemaryori@gmail.com"
           git config --global user.name "luis-ar"
-          echo "https://github.com:${{ secrets.MIRROR_TOKEN }}@github.com" > ~/.git-credentials
+          echo "https://github.com:${{ secrets.MIRROR_TOKEN }}:x-oauth-basic" > ~/.git-credentials
 
       - name: Clone client's repo
-        run: git clone https://github.com:${{ secrets.MIRROR_TOKEN }}@github.com/luis-ar/auth-supabase.git client_repo
+        run: git clone https://github.com/luis-ar/auth-supabase.git client_repo
 
       - name: Fetch latest changes
         run: git fetch origin
@@ -42,5 +42,5 @@ jobs:
         working-directory: client_repo
 
       - name: Push changes to client's repo
-        run: git push https://github.com:${{ secrets.MIRROR_TOKEN }}@github.com/luis-ar/authcopy.git main
+        run: git push https://github.com/luis-ar/auth-supabase.git main
         working-directory: client_repo
