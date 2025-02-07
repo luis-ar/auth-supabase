@@ -14,7 +14,7 @@ jobs:
 
       - name: Push to Mirror
         env:
-          MIRROR_TOKEN: ${{ secrets.MIRROR_TOKEN }} # Asegúrate de que este secreto esté configurado
+          MIRROR_TOKEN: ${{secrets.MIRROR_TOKEN}} # Asegúrate de que este secreto esté configurado
         run: |
           git remote add mirror https://$MIRROR_TOKEN@github.com/luis-ar/authcopy.git
           git push mirror main  # O la rama que necesites
