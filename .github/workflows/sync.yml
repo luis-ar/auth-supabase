@@ -14,7 +14,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Debugging - Print environment variables
+      - name: Debugging - Print environment variabless
         run: |
           echo "MIRROR_TOKEN: $MIRROR_TOKEN"
           echo "GITHUB_REPOSITORY: $GITHUB_REPOSITORY"
