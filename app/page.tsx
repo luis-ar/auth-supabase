@@ -5,7 +5,7 @@ import Image from "next/image";
 export default function Home() {
   return (
     <div>
-      <h1>Welcome hello word!</h1>
+      <h1>Welcome hello word LUIS!</h1>
       <PageLogin />
       {/* <Data /> */}
     </div>
