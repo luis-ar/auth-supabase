@@ -1,0 +1,20 @@
+name: Sync to Mirror
+
+on:
+  push:
+    branches:
+      - main # Cambia esto si usas otra rama
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Push to Mirror
+        env:
+          MIRROR_TOKEN: ${{ secrets.MIRROR_TOKEN }} # Asegúrate de que este secreto esté configurado
+        run: |
+          git remote add mirror https://$MIRROR_TOKEN@github.com/luis-ar/authcopy.git
+          git push mirror main  # O la rama que necesites
