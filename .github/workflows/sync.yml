@@ -14,28 +14,34 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2 #
+        uses: actions/checkout@v2
+
       - name: Set up Git
         run: |
           git config --global user.email "luisdemaryori@gmail.com"  # Cambia esto a tu correo
-          git config --global user.name "luis-ar"          # Cambia esto a tu nombre
+          git config --global user.name "luis-ar"                   # Cambia esto a tu nombre
           git config credential.helper store
-          echo "https://github.com:${{ secrets.MIRROR_TOKEN }}@github.com" > ~/.git-credentials  # Cambia CLIENT_REPO_TOKEN si es necesario
+          echo "https://github.com:${{ secrets.MIRROR_TOKEN }}@github.com" > ~/.git-credentials  # Asegúrate de que MIRROR_TOKEN es correcto
+
       - name: Clone client's repo
-        run: git clone https://github.com/luis-ar/auth-supabase.git client_repo # Cambia 'client_username' y 'client_repo'
+        run: git clone https://github.com/luis-ar/auth-supabase.git client_repo # Cambia esto si es necesario
+
       - name: Fetch latest changes
         run: git fetch origin
         working-directory: client_repo
+
       - name: Set upstream
         working-directory: client_repo
         run: |
-          git remote add upstream https://github.com/luis-ar/authcopy.git  # Cambia 'production_username' y 'production_repo'
+          git remote add upstream https://github.com/luis-ar/authcopy.git  # Cambia esto si es necesario
           git fetch upstream
+
       - name: Merge changes
         run: |
-          git checkout main  # Cambia 'client_branch' a la rama que desees
-          git merge upstream/main --no-edit
+          git checkout main  # Asegúrate de que 'main' es la rama correcta
+          git merge upstream/main --no-edit  # Asegúrate de que 'upstream/main' existe
         working-directory: client_repo
+
       - name: Push changes to client's repo
-        run: git push origin main # Cambia 'client_branch' si es necesario
+        run: git push origin main # Asegúrate de que estás haciendo push a la rama correcta
         working-directory: client_repo
