@@ -1,46 +1,20 @@
-name: Mirror to Client Repo
+name: Sync to Mirror
 
 on:
   push:
     branches:
       - main
 
-permissions:
-  contents: write
-
 jobs:
-  mirror:
+  sync:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout code
+      - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Set up Git
+      - name: Push to Mirror
+        env:
+          MIRROR_TOKEN: ${{ secrets.MIRROR_TOKEN }}
         run: |
-          git config --global user.email "luisdemaryori@gmail.com"
-          git config --global user.name "luis-ar"
-          echo "https://github.com:${{ secrets.MIRROR_TOKEN }}:x-oauth-basic" > ~/.git-credentials
-
-      - name: Clone client's repo
-        run: git clone https://github.com/luis-ar/auth-supabase.git client_repo
-
-      - name: Fetch latest changes
-        run: git fetch origin
-        working-directory: client_repo
-
-      - name: Set upstream
-        working-directory: client_repo
-        run: |
-          git remote add upstream https://github.com/luis-ar/authcopy.git
-          git fetch upstream
-
-      - name: Merge changes
-        run: |
-          git checkout main
-          git merge upstream/main --no-edit
-        working-directory: client_repo
-
-      - name: Push changes to client's repo
-        run: git push https://github.com/luis-ar/auth-supabase.git main
-        working-directory: client_repo
+          git remote add mirror https://github.com/luis-ar/authcopy.git
+          git push mirror main  
